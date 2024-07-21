@@ -7,7 +7,7 @@ Welcome to my Python Starter Kit! As someone who often finds myself recreating p
 ## Features
 
 1. **Setup Script**: Includes a `setup_project.py` script to simplify the initial setup process for new projects, allowing you to easily rename the project and configure initial settings.
-   
+
 2. **Dependency Management**: Utilizes `pyproject.toml` and Poetry for efficient dependency management and project configuration, ensuring a modern and streamlined development workflow.
 
 3. **GitHub Workflows**: Integrated GitHub Actions workflows for seamless CI/CD, release automation, and package updates:
@@ -36,7 +36,7 @@ Certainly! Here’s a detailed section on how to use the project template:
 First, clone the project template repository to your local machine:
 
 ```sh
-git clone https://github.com/your-username/project_name.git new_project
+git clone https://github.com/rrtjr/python-project-template new_project
 cd new_project
 ```
 
@@ -126,7 +126,7 @@ First, fork the repository to your GitHub account:
 Clone your forked repository to your local machine:
 
 ```sh
-git clone https://github.com/your-username/project_name.git
+git clone https://github.com/your-username/python-project-template.git
 cd project_name
 ```
 

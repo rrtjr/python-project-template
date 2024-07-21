@@ -5,6 +5,14 @@ description = "Just another Python project template"
 authors = ["rrtjr <your-email@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+keywords = ["python"]
+repository = "https://github.com/rrtjr/python-project-template"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -13,6 +21,7 @@ python = "^3.11"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.5.4"
 pre-commit = "^3.7.1"
+black = "^24.4.2"
 
 [build-system]
 requires = ["poetry-core"]
