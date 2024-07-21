@@ -50,16 +50,19 @@ jobs:
 
       - name: Combine update files
         run: |
+          echo "# Dependency Report"
+          echo "---"
           echo "## Poetry Package Updates" > combined-updates.txt
           cat poetry-updates.txt >> combined-updates.txt
-          echo "\n## Pre-commit Hook Updates" >> combined-updates.txt
+          echo "\ " >> combined-updates.txt
+          echo "## Pre-commit Hook Updates" >> combined-updates.txt
           cat pre-commit-updates.txt >> combined-updates.txt
 
       - name: Check if updates are available
         id: check-updates
         run: |
-          updates_poetry=$(grep -E 'Updating' poetry-updates.txt | grep -v 'Skipped for the following reason: Already installed' || true)
-          updates_pre_commit=$(grep -E 'updating' pre-commit-updates.txt | grep -v 'already up to date' || true)
+          updates_poetry=$(grep -E 'Updating ' poetry-updates.txt)
+          updates_pre_commit=$(grep -E 'updating ' pre-commit-updates.txt)
           if [[ -z "$updates_poetry" && -z "$updates_pre_commit" ]]; then
             echo "no-updates=true" >> $GITHUB_ENV
           else
