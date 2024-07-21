@@ -1,0 +1,55 @@
+name: Dependency Update Check
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Runs monthly at midnight on the 1st day of the month
+  workflow_dispatch:
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "export PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Check for Poetry package updates
+        run: |
+          poetry update --dry-run > poetry-updates.txt
+        continue-on-error: true
+
+      - name: Display Poetry package updates
+        run: cat poetry-updates.txt
+
+      - name: Install pre-commit
+        run: poetry run pip install pre-commit
+
+      - name: Check for pre-commit hook updates
+        run: |
+          poetry run pre-commit autoupdate --dry-run > pre-commit-updates.txt
+        continue-on-error: true
+
+      - name: Display pre-commit hook updates
+        run: cat pre-commit-updates.txt
+
+      - name: Create issue for updates
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: Dependency Updates Available
+          content-filepath: poetry-updates.txt
+          content-filepath-2: pre-commit-updates.txt
+          labels: dependency-update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
