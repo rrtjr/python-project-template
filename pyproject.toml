@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-project-template"
-version = "0.0.2"
+version = "0.0.3"
 description = "Just another Python project template"
 authors = ["rrtjr <your-email@gmail.com>"]
 license = "MIT"
