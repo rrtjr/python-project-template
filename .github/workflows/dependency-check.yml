@@ -64,6 +64,7 @@ jobs:
             echo "no-updates=true" >> $GITHUB_ENV
           else
             echo "no-updates=false" >> $GITHUB_ENV
+          fi
 
       - name: Create issue for updates
         if: env.no-updates == 'false'
