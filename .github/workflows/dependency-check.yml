@@ -61,6 +61,7 @@ jobs:
       - name: Check if updates are available
         id: check-updates
         run: |
+          set +e
           updates_poetry=$(grep -E 'Updating ' poetry-updates.txt)
           updates_pre_commit=$(grep -E 'updating ' pre-commit-updates.txt)
           if [[ -z "$updates_poetry" && -z "$updates_pre_commit" ]]; then
