@@ -42,9 +42,9 @@ jobs:
       - name: Bump version
         id: bump_version
         run: |
-          poetry run bump2version ${{ github.event.inputs.version_type }} --allow-dirty
-          NEW_VERSION=$(poetry version | cut -d' ' -f2)
-          echo "new_version=${NEW_VERSION}" >> $GITHUB_ENV
+          CURRENT_VERSION=$(poetry version -s)
+          NEW_VERSION=$(poetry run bump2version --current-version $CURRENT_VERSION ${{ github.event.inputs.version_type }} --allow-dirty --list | grep new_version= | cut -d= -f2)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Push changes
         run: |
