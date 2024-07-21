@@ -5,6 +5,10 @@ on:
     - cron: '0 0 1 * *' # Runs monthly at midnight on the 1st day of the month
   workflow_dispatch:
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   check-dependencies:
     runs-on: ubuntu-latest
