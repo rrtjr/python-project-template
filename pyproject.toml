@@ -10,12 +10,12 @@ repository = "https://github.com/rrtjr/python-project-template"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: MIT License",
 ]
 
 [tool.poetry.dependencies]
-python = "3.11"
+python = "3.11.4"
 
 
 [tool.poetry.group.dev.dependencies]
