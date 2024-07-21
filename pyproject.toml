@@ -23,12 +23,6 @@ pre-commit = "^3.7.1"
 black = "^24.4.2"
 bump2version = "^1.0.1"
 
-[tool.bump2version]
-current_version = "0.0.1"
-files = ["pyproject.toml"]
-search = 'version = "{current_version}"'
-replace = 'version = "{new_version}"'
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
