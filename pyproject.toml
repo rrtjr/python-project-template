@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "python-project-template"
+version = "0.0.1"
+description = "Just another Python project template"
+authors = ["rrtjr <your-email@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.4"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
