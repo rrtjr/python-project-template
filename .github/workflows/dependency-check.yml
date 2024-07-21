@@ -62,7 +62,7 @@ jobs:
         id: check-updates
         run: |
           set +e
-          updates_poetry=$(grep -E '- Updating ' poetry-updates.txt)
+          updates_poetry=$(grep -E '\- Updating ' poetry-updates.txt)
           updates_pre_commit=$(grep -E 'updating ' pre-commit-updates.txt)
           if [[ -z "$updates_poetry" && -z "$updates_pre_commit" ]]; then
             echo "no-updates=true" >> $GITHUB_ENV
