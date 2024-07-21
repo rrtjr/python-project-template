@@ -55,7 +55,16 @@ jobs:
           echo "\n## Pre-commit Hook Updates" >> combined-updates.txt
           cat pre-commit-updates.txt >> combined-updates.txt
 
+      - name: Check if updates are available
+        id: check-updates
+        run: |
+          if grep -q 'No dependencies' combined-updates.txt && grep -q 'is already up-to-date' combined-updates.txt; then
+            echo "no-updates=true" >> $GITHUB_ENV
+          else
+            echo "no-updates=false" >> $GITHUB_ENV
+
       - name: Create issue for updates
+        if: env.no-updates == 'false'
         uses: peter-evans/create-issue-from-file@v4
         with:
           title: Dependency Updates Available
