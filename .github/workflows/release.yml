@@ -1,0 +1,65 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version type to bump (major, minor, patch)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+      changelog:
+        description: 'Changelog for the release'
+        required: true
+        default: 'Update dependencies'
+        type: string
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.11.4'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "export PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          poetry run bump2version ${{ github.event.inputs.version_type }} --allow-dirty
+          NEW_VERSION=$(poetry version | cut -d' ' -f2)
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_ENV
+
+      - name: Push changes
+        run: |
+          git push --follow-tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.new_version }}
+          release_name: Release v${{ env.new_version }}
+          draft: false
+          prerelease: false
+          body: ${{ github.event.inputs.changelog }}

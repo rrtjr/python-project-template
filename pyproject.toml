@@ -22,6 +22,7 @@ python = "3.11.4"
 ruff = "^0.5.4"
 pre-commit = "^3.7.1"
 black = "^24.4.2"
+bump2version = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]
