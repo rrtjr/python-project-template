@@ -58,10 +58,13 @@ jobs:
       - name: Check if updates are available
         id: check-updates
         run: |
-          if grep -q 'No dependencies' combined-updates.txt && grep -q 'is already up-to-date' combined-updates.txt; then
+          updates_poetry=$(grep -E 'Updating' poetry-updates.txt | grep -v 'Skipped for the following reason: Already installed')
+          updates_pre_commit=$(grep -E 'updating' pre-commit-updates.txt | grep -v 'already up to date')
+          if [[ -z "$updates_poetry" && -z "$updates_pre_commit" ]]; then
             echo "no-updates=true" >> $GITHUB_ENV
           else
             echo "no-updates=false" >> $GITHUB_ENV
+          fi
 
       - name: Create issue for updates
         if: env.no-updates == 'false'
