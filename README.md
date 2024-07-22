@@ -1,5 +1,7 @@
 # Just Another Python Project Template
 
+[![CI Pipeline](https://github.com/rrtjr/python-project-template/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rrtjr/python-project-template/actions/workflows/ci.yml)
+
 ## Description
 
 Welcome to my Python Starter Kit! As someone who often finds myself recreating project setups from scratch, I created this template to streamline the process and ensure consistency across my projects. This template provides a solid foundation for rapid development, saving time and effort in the initial setup phase. This template will be handy for me and anyone looking to kickstart their Python projects efficiently.
