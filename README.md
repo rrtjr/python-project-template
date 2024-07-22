@@ -57,17 +57,30 @@ After the setup script runs, remove the old `.git` directory and initialize a ne
 ```sh
 rm -rf .git
 git init
+git checkout -b main
 git add .
 git commit -m "Initial commit with updated project name"
 git remote add origin https://github.com/your-username/new_project_name.git
+git config branch.main.remote origin
+git config branch.main.merge refs/heads/main
+git config branch.main.vscode-merge-base origin/main
 git push -u origin main
 ```
+
+This assumes you have an empty git repository. Should you have an existing and wanting to merge you can combine histories by:
+
+```sh
+git merge origin/main --allow-unrelated-histories
+```
+
+You can then proceed ub resolving the conflicts (e.g. pyproject.toml, workflows, .pre-commit-config)
 
 ### 4. Install Dependencies
 
 Use Poetry to install the project dependencies defined in `pyproject.toml`:
 
 ```sh
+poetry env use $(pyenv which python)
 poetry install
 ```
 
@@ -79,7 +92,7 @@ Install pre-commit hooks to maintain code quality and prevent common issues:
 pre-commit install
 ```
 
-### 6. Running Tests
+### 6. Running Tests (TODO)
 
 Run the tests using `pytest` to ensure everything is working correctly:
 

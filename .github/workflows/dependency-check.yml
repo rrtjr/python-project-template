@@ -31,7 +31,7 @@ jobs:
 
       - name: Check for Poetry package updates
         run: |
-          poetry update --dry-run > poetry-updates.txt
+          poetry update --with dev --dry-run > poetry-updates.txt
         continue-on-error: true
 
       - name: Display Poetry package updates

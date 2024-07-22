@@ -4,6 +4,7 @@ This module provides functions to change placeholders into actual project inform
 
 import os
 import re
+from typing import List
 
 
 def replace_in_file(file_path: str, old_string: str, new_string: str) -> None:
@@ -96,15 +97,50 @@ def update_project_version(file_path: str, new_version: str) -> None:
         file.write(content)
 
 
+def get_current_project_name(file_path: str) -> str:
+    """
+    Retrieves the current project name from the specified file.
+
+    Args:
+        file_path (str): The path to the file.
+
+    Returns:
+        str: The current project name.
+    """
+    with open(file_path, "r", encoding="utf-8") as file:
+        content: str = file.read()
+    match = re.search(r'name\s*=\s*"(.*?)"', content)
+    return match.group(1) if match else ""
+
+
+def get_current_python_version(file_path: str) -> str:
+    """
+    Retrieves the current Python version from the specified file.
+
+    Args:
+        file_path (str): The path to the file.
+
+    Returns:
+        str: The current Python version.
+    """
+    with open(file_path, "r", encoding="utf-8") as file:
+        content: str = file.read()
+    match = re.search(r"python\s*=\s*\"(.*?)\"", content)
+    return match.group(1) if match else ""
+
+
 def main() -> None:
     """
     Main function to update the project name in files and rename the project directory.
     """
-    old_name = "python-project-template-by-rtj"
+    pyproject_file = "pyproject.toml"
+    old_name: str = get_current_project_name(pyproject_file)
+    print(f"Old project name {old_name} found.")
+
     new_name: str = input("Enter the new project name: ")
     new_name = to_snake_case(new_name)
 
-    files_to_update = [
+    files_to_update: List[str] = [
         "pyproject.toml",
     ]
 
@@ -113,10 +149,10 @@ def main() -> None:
 
     rename_project_directory(old_name, new_name)
 
-    old_python_version = "3.11.4"
-    new_python_version = input("Enter the new Python version (e.g., ^3.11.4): ")
+    old_python_version: str = get_current_python_version(pyproject_file)
+    new_python_version: str = input("Enter the exact target Python version: ")
 
-    python_version_files = [
+    python_version_files: List[str] = [
         "pyproject.toml",
         ".github/workflows/ci.yml",
         ".python-version",
@@ -129,9 +165,8 @@ def main() -> None:
         else:
             update_python_version(file_path, old_python_version, new_python_version)
 
-    # Update the project version in pyproject.toml and bumpcfg.toml
     new_project_version = "0.0.1"
-    version_files = [
+    version_files: List[str] = [
         "pyproject.toml",
         ".bumpversion.cfg",
     ]
