@@ -1,13 +1,6 @@
 {
-    "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
     "python.poetryPath": "poetry",
     "python.terminal.activateEnvironment": true,
-    "python.formatting.provider": "black",
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": true,
-    "python.linting.mypyEnabled": true,
-    "python.linting.banditEnabled": true,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",

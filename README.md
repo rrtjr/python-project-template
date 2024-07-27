@@ -66,6 +66,7 @@ git remote add origin https://github.com/your-username/new_project_name.git
 git config branch.main.remote origin
 git config branch.main.merge refs/heads/main
 git config branch.main.vscode-merge-base origin/main
+git pull origin main --allow-unrelated-histories # Then follow instructions to resolve conflicts
 git push -u origin main
 ```
 
